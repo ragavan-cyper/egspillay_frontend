@@ -28,9 +28,9 @@ const router = createBrowserRouter([
     element: <Homepage />,
   },
   {
-    path:"/admission",
-    element:<Application/>
-  }
+    path: "/admission",
+    element: <Application />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(

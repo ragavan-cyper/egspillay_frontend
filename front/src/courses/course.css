@@ -1,0 +1,23 @@
+/* Mobile small screens */
+@media (max-width: 480px) {
+  .courseimg {
+    height: 220px;
+    border-radius: 25px;
+    padding: 10px;
+  }
+}
+
+/* Large screens (Laptop & Desktop only) */
+@media (min-width: 992px) {
+  .courseimg {
+    border-radius: 35px;
+    padding: 20px;
+    height: 450px;
+   
+  }
+}
+
+.coursecontainer{
+  width: 100%;
+  margin-top:50px;
+}

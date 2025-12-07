@@ -6,7 +6,11 @@
 
 body {
   height: 100vh;
-  background-color: #0e0808; /* full black background */
+  /* background-color: #0e0808; */
+  /* margin-top: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; */
 }
 
 .box {
@@ -15,7 +19,7 @@ body {
   align-items: center;
   height: 100vh;
   text-align: center;
-  background-color: #000;
+  /* background-color: #000; */
 }
 
 /* login Box */
@@ -26,7 +30,7 @@ body {
   width: 400px;
   height: 450px;
   padding: 20px;
-  background: linear-gradient(135deg, #990b52, #146d96); /* smooth gradient */
+  background: linear-gradient(135deg, #e6e3e4, #146d96); /* smooth gradient */
   border-radius: 15px;
 
   /* soft shadow */

@@ -1,0 +1,11 @@
+.bannercontainer {
+  border-radius: 20px; /* default */
+  
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .bannercontainer img{
+    border-radius: 10px;
+  }
+}

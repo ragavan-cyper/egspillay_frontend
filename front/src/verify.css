@@ -6,7 +6,7 @@
 
 body {
   height: 100vh;
-  background-color: #000; /* full black background */
+  /* background-color: #000;  */
 }
 
 .box {
@@ -14,7 +14,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #000;
+  /* background-color: #000; */
   text-align: center;
 }
 
@@ -25,7 +25,7 @@ body {
   width: 400px;
   height: 520px;
   padding: 20px;
-  background: linear-gradient(135deg, #990b52, #146d96); /* smooth gradient */
+  background: linear-gradient(135deg, #f1eff0, #146d96); /* smooth gradient */
   border-radius: 15px;
 
   /* soft shadow */

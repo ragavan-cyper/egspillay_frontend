@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
 import axios from "axios";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [data, setData] = useState({
@@ -12,7 +12,7 @@ function Login() {
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const onchangeevent = (e) => {
     const { name, value } = e.target;
@@ -55,21 +55,20 @@ function Login() {
           withCredentials: true,
         }
       );
-if (response.data.success) {
-  setSuccess("Successfully Logged In");
-  
-  setTimeout(() => {
-    setSuccess("");
-    navigate("/homepage");
-  }, 3000);
-}
+      if (response.data.success) {
+        setSuccess("Successfully Logged In");
+
+        setTimeout(() => {
+          setSuccess("");
+          navigate("/homepage");
+        }, 3000);
+      }
 
       console.log(response.data.success, "success");
     } catch (error) {
       setError("Wrong password");
       setTimeout(() => {
         setError("");
-       
       }, 2000);
     }
   };

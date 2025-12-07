@@ -53,7 +53,10 @@ function Signup() {
     }
 
     try {
-      await axios.post("http://localhost:3000/api/user/signup", data, {
+      
+
+
+      awaitaxios.post("https://egs-college-api.vercel.app/api/user/login", data, {
         withCredentials: true,
       });
 

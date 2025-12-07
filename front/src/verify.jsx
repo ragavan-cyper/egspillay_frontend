@@ -55,9 +55,7 @@ function Verify() {
     setSuccess(""); 
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/user/verify",
-        data,
+      const response = await axios.post("https://egs-college-api.vercel.app/api/user/login", data,
         {
           withCredentials: true,
         }

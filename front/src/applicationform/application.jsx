@@ -28,9 +28,9 @@ function Application() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/admission",
-        data,
+      
+
+      const response = await axios.post("https://email-verification-signup-login-pag-theta.vercel.app/api/user/signup", data,
         {
           withCredentials: true,
         }

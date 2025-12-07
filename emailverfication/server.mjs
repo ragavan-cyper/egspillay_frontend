@@ -13,11 +13,15 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://egspillay.vercel.app",
+    origin: [
+      "https://egspillay.vercel.app",
+      "https://egscollege.vercel.app"
+    ],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
 );
+
 
 
 

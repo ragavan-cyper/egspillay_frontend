@@ -24,7 +24,7 @@ function Login() {
   };
 
   const handleevent = async (e) => {
-    e.preventDefault();
+    e.preventDefault();  // 🚀 VERY IMPORTANT - no GET request
 
     if (!data.name) {
       setError("Name Field Empty");
@@ -47,24 +47,27 @@ function Login() {
       }, 2000);
       return;
     }
+
     try {
-      const response = await axios.post("https://egs-college-api.vercel.app/api/user/login", data,
+      const response = await axios.post(
+        "https://egs-college-api.vercel.app/api/user/login",
+        data,
         {
           withCredentials: true,
         }
       );
+
       if (response.data.success) {
         setSuccess("Successfully Logged In");
 
         setTimeout(() => {
           setSuccess("");
           navigate("/homepage");
-        }, 3000);
+        }, 2000);
       }
 
-      console.log(response.data.success, "success");
     } catch (error) {
-      setError("Wrong password");
+      setError("Wrong password or user not found");
       setTimeout(() => {
         setError("");
       }, 2000);
@@ -85,39 +88,48 @@ function Login() {
           <div className="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
             <div className="box">
               <div className="login">
-                <span>
-                  <b>LOGIN</b>
-                </span>
 
-                <input
-                  type="text"
-                  placeholder="Enter Your Name"
-                  name="name"
-                  value={data.name}
-                  onChange={onchangeevent}
-                />
+                {/* ⭐ FORM STARTS HERE */}
+                <form onSubmit={handleevent}>
 
-                <input
-                  type="email"
-                  placeholder="Enter Your Email"
-                  name="email"
-                  value={data.email}
-                  onChange={onchangeevent}
-                />
+                  <span>
+                    <b>LOGIN</b>
+                  </span>
 
-                <input
-                  type="password"
-                  placeholder="Enter Your Password"
-                  name="password"
-                  value={data.password}
-                  onChange={onchangeevent}
-                />
+                  <input
+                    type="text"
+                    placeholder="Enter Your Name"
+                    name="name"
+                    value={data.name}
+                    onChange={onchangeevent}
+                  />
 
-                <button onClick={handleevent}>LOGIN</button>
+                  <input
+                    type="email"
+                    placeholder="Enter Your Email"
+                    name="email"
+                    value={data.email}
+                    onChange={onchangeevent}
+                  />
+
+                  <input
+                    type="password"
+                    placeholder="Enter Your Password"
+                    name="password"
+                    value={data.password}
+                    onChange={onchangeevent}
+                  />
+
+                  {/* ⭐ this button will send POST, not GET */}
+                  <button type="submit">LOGIN</button>
+
+                </form>
+                {/* ⭐ FORM ENDS HERE */}
 
                 <Link to="/" className="link text-center">
                   <p>Create Account ?</p>
                 </Link>
+
               </div>
             </div>
           </div>

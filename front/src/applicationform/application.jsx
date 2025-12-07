@@ -30,7 +30,8 @@ function Application() {
     try {
       
 
-      const response = await axios.post("https://egs-college-api.vercel.app/api/admission", data,
+      const response =await axios.post("https://egs-college-api.vercel.app/api/admission", data,
+
 
         {
           withCredentials: true,

@@ -13,11 +13,12 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://email-verification-signup-login-pag-psi.vercel.app",
+    origin: "https://egspillay.vercel.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
 );
+
 
 // ROUTES
 app.use("/api", router);

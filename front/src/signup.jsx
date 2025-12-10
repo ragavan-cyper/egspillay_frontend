@@ -53,7 +53,7 @@ function Signup() {
     }
 
     try {
-      await axios.post(`${REACT_APP_BACKEND}/api/user/signup`, data, {
+      await axios.post(`${Process.env.REACT_APP_BACKEND}/api/user/signup`, data, {
         withCredentials: true,
       });
 

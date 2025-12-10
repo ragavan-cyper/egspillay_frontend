@@ -34,7 +34,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        `${REACT_APP_BACKEND}/api/user/login`,
+        `${Process.env.REACT_APP_BACKEND}/api/user/login`,
         data,
         {
           withCredentials: true,
@@ -58,13 +58,14 @@ function Login() {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
-
             {error && <p className="error text-center">{error}</p>}
             {success && <p className="success text-center">{success}</p>}
 
             <div className="box">
               <div className="login">
-                <span><b>LOGIN</b></span>
+                <span>
+                  <b>LOGIN</b>
+                </span>
 
                 <input
                   type="text"
@@ -97,7 +98,6 @@ function Login() {
                 </Link>
               </div>
             </div>
-
           </div>
         </div>
       </div>

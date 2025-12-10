@@ -56,7 +56,7 @@ function Verify() {
 
     try {
       const response = await axios.post(
-        `${REACT_APP_BACKEND}/api/user/verify`,
+        `${Process.env.REACT_APP_BACKEND}/api/user/verify`,
         data,
 
         {

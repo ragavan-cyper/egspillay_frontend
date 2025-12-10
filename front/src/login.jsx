@@ -34,7 +34,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/login",
+        `${REACT_APP_BACKEND}/api/user/login`,
         data,
         {
           withCredentials: true,

@@ -24,33 +24,17 @@ function Login() {
   };
 
   const handleevent = async (e) => {
-    e.preventDefault();  // 🚀 VERY IMPORTANT - no GET request
+    e.preventDefault();
 
-    if (!data.name) {
-      setError("Name Field Empty");
-      setTimeout(() => {
-        setError("");
-      }, 2000);
-      return;
-    }
-    if (!data.email) {
-      setError("Email Field Empty");
-      setTimeout(() => {
-        setError("");
-      }, 2000);
-      return;
-    }
-    if (!data.password) {
-      setError("Password Field Empty");
-      setTimeout(() => {
-        setError("");
-      }, 2000);
+    if (!data.name || !data.email || !data.password) {
+      setError("All fields are required");
+      setTimeout(() => setError(""), 2000);
       return;
     }
 
     try {
       const response = await axios.post(
-        "https://egs-college-api.vercel.app/api/user/login",
+        "http://localhost:3000/api/user/login",
         data,
         {
           withCredentials: true,
@@ -59,79 +43,61 @@ function Login() {
 
       if (response.data.success) {
         setSuccess("Successfully Logged In");
-
         setTimeout(() => {
-          setSuccess("");
           navigate("/homepage");
-        }, 2000);
+        }, 1000);
       }
-
     } catch (error) {
-      setError("Wrong password or user not found");
-      setTimeout(() => {
-        setError("");
-      }, 2000);
+      setError("Wrong credentials");
+      setTimeout(() => setError(""), 2000);
     }
   };
 
   return (
     <>
       <div className="container">
-        <div className="row justify-content-center mt-3">
-          <div className="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
-            {error && <p className="error text-center">{error}</p>}
-            {success && <p className="success text-center">{success}</p>}
-          </div>
-        </div>
-
         <div className="row justify-content-center">
           <div className="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
+
+            {error && <p className="error text-center">{error}</p>}
+            {success && <p className="success text-center">{success}</p>}
+
             <div className="box">
               <div className="login">
+                <span><b>LOGIN</b></span>
 
-                {/* ⭐ FORM STARTS HERE */}
-                <form onSubmit={handleevent}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter Your Name"
+                  value={data.name}
+                  onChange={onchangeevent}
+                />
 
-                  <span>
-                    <b>LOGIN</b>
-                  </span>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter Your Email"
+                  value={data.email}
+                  onChange={onchangeevent}
+                />
 
-                  <input
-                    type="text"
-                    placeholder="Enter Your Name"
-                    name="name"
-                    value={data.name}
-                    onChange={onchangeevent}
-                  />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter Your Password"
+                  value={data.password}
+                  onChange={onchangeevent}
+                />
 
-                  <input
-                    type="email"
-                    placeholder="Enter Your Email"
-                    name="email"
-                    value={data.email}
-                    onChange={onchangeevent}
-                  />
-
-                  <input
-                    type="password"
-                    placeholder="Enter Your Password"
-                    name="password"
-                    value={data.password}
-                    onChange={onchangeevent}
-                  />
-
-                  {/* ⭐ this button will send POST, not GET */}
-                  <button type="submit">LOGIN</button>
-
-                </form>
-                {/* ⭐ FORM ENDS HERE */}
+                <button onClick={handleevent}>LOGIN</button>
 
                 <Link to="/" className="link text-center">
                   <p>Create Account ?</p>
                 </Link>
-
               </div>
             </div>
+
           </div>
         </div>
       </div>

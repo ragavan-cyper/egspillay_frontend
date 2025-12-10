@@ -23,7 +23,7 @@ function Verify() {
     });
   };
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const handleevent = async (e) => {
     e.preventDefault();
 
@@ -51,11 +51,13 @@ function Verify() {
       return;
     }
 
-    setError(""); 
-    setSuccess(""); 
+    setError("");
+    setSuccess("");
 
     try {
-      const response =await axios.post("https://egs-college-api.vercel.app/api/user/verify", data,
+      const response = await axios.post(
+        "http://localhost:3000/api/user/verify",
+        data,
 
         {
           withCredentials: true,
@@ -65,13 +67,8 @@ function Verify() {
       setSuccess(response.data);
       setTimeout(() => {
         setSuccess("");
-         navigate("/homepage")
+        navigate("/homepage");
       }, 2000);
-
-     
-
-
-
     } catch (error) {
       if (error.response) {
         setError(error.response.data);

@@ -49,15 +49,11 @@ function Signup() {
     if (!emailRegex.test(data.email.toLowerCase())) {
       setError("Only .com Emails are allowed");
       setTimeout(() => setError(""), 2000);
-      return;
+      return
     }
 
     try {
-     
-
-
-
-      await axios.post("https://egs-college-api.vercel.app/api/user/signup", data, {
+      await axios.post("http://localhost:3000/api/user/signup", data, {
         withCredentials: true,
       });
 

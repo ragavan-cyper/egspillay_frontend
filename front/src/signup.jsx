@@ -27,42 +27,51 @@ function Signup() {
   };
 
   const submitevent = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!data.name) {
-      setError("name field is empty");
+  if (!data.name) {
+    setError("Name field is empty");
+    setTimeout(() => setError(""), 2000);
+    return;
+  }
+
+  if (!data.email) {
+    setError("Email is empty");
+    setTimeout(() => setError(""), 2000);
+    return;
+  }
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/;
+  if (!emailRegex.test(data.email.toLowerCase())) {
+    setError("Only .com Emails are allowed");
+    setTimeout(() => setError(""), 2000);
+    return;
+  }
+
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/user/signup`,
+      data,
+      { withCredentials: true }
+    );
+
+    if (response.status === 200) {
+      setSuccess("OTP sent successfully");
+
       setTimeout(() => {
-        setError("");
-      }, 2000);
-      return;
-    }
-    if (!data.email) {
-      setError("email  is empty");
-      setTimeout(() => {
-        setError("");
-      }, 2000);
-      return;
+        navigate("/verify", { state: { email: data.email, name: data.name } });
+      }, 1500);
     }
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/;
-
-    if (!emailRegex.test(data.email.toLowerCase())) {
-      setError("Only .com Emails are allowed");
-      setTimeout(() => setError(""), 2000);
-      return;
+  } catch (error) {
+    if (error.response) {
+      setError(error.response.data);
+    } else {
+      setError("Server error");
     }
+  }
+};
 
-    try {
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/signup`, data, {
-        withCredentials: true,
-      });
-
-      setSuccess("otp send successfully");
-      navigate("/verify", { state: data });
-    } catch (error) {
-      setError("server crash");
-    }
-  };
 
   return (
     <>

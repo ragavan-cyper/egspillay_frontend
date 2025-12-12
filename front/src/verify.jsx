@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./verify.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Verify() {
   const [data, setData] = useState({
@@ -14,6 +14,20 @@ function Verify() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // FIX 1: Load data from Signup page (email & name)
+  useEffect(() => {
+    if (location.state) {
+      setData((prev) => ({
+        ...prev,
+        name: location.state.name,
+        email: location.state.email,
+      }));
+    }
+  }, [location.state]);
+
   const onchangeevent = (e) => {
     const { name, value } = e.target;
 
@@ -23,54 +37,51 @@ function Verify() {
     });
   };
 
-  const navigate = useNavigate();
   const handleevent = async (e) => {
     e.preventDefault();
 
     if (!data.name) {
       setError("name field is required");
-
-      setTimeout(() => {
-        setError("");
-      }, 2000);
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+    if (!data.email) {
+      setError("email is required");
+      setTimeout(() => setError(""), 2000);
       return;
     }
     if (!data.password) {
-      setError("password is field required");
-
-      setTimeout(() => {
-        setError("");
-      }, 2000);
+      setError("password is required");
+      setTimeout(() => setError(""), 2000);
       return;
     }
     if (!data.otp) {
       setError("please enter your otp");
-      setTimeout(() => {
-        setError("");
-      }, 2000);
+      setTimeout(() => setError(""), 2000);
       return;
     }
 
     setError("");
     setSuccess("");
 
-   try {
-  const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/verify`, data, {
-    withCredentials: true,
-  });
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/verify`,
+        data,
+        { withCredentials: true }
+      );
 
-  if (response.data.success === true) {
-    setSuccess(response.data.message);
-    setTimeout(() => navigate("/homepage"), 2000);
-  } else {
-    setError(response.data.message);
-    setTimeout(() => setError(""), 2000);
-  }
-
-} catch (error) {
-  setError("Server error");
-}
-
+      if (response.data.success === true) {
+        setSuccess(response.data.message);
+        setTimeout(() => navigate("/homepage"), 2000);
+      } else {
+        setError(response.data.message);
+        setTimeout(() => setError(""), 2000);
+      }
+    } catch (error) {
+      setError("Server error");
+      setTimeout(() => setError(""), 2000);
+    }
   };
 
   return (
@@ -121,11 +132,8 @@ function Verify() {
                   value={data.otp}
                   type="text"
                   inputMode="numeric"
-                  pattern="\d{6}"
                   maxLength="6"
-                  autoComplete="one-time-code"
                   placeholder="6-digit code"
-                  aria-label="One time code"
                   onChange={onchangeevent}
                 />
 

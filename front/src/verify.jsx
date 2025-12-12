@@ -54,34 +54,23 @@ function Verify() {
     setError("");
     setSuccess("");
 
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/verify`,
-        data,
+   try {
+  const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/verify`, data, {
+    withCredentials: true,
+  });
 
-        {
-          withCredentials: true,
-        }
-      );
+  if (response.data.success === true) {
+    setSuccess(response.data.message);
+    setTimeout(() => navigate("/homepage"), 2000);
+  } else {
+    setError(response.data.message);
+    setTimeout(() => setError(""), 2000);
+  }
 
-      setSuccess(response.data);
-      setTimeout(() => {
-        setSuccess("");
-        navigate("/homepage");
-      }, 2000);
-    } catch (error) {
-      if (error.response) {
-        setError(error.response.data);
-        setTimeout(() => {
-          setError("");
-        }, 3000);
-      } else {
-        setError("Server is not responding");
-        setTimeout(() => {
-          setError("");
-        }, 2000);
-      }
-    }
+} catch (error) {
+  setError("Server error");
+}
+
   };
 
   return (
